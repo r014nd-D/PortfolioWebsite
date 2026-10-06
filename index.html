@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+
+    <!--
+        Makes the layout responsive on phones/tablets.
+    -->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+        name="description"
+        content="Personal portfolio website"
+    />
+
+    <title>Roland. — Portfolio</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- =========================================================
+         FIXED NAVIGATION
+         ========================================================= -->
+    <!-- =====================================================
+     SITE HEADER
+====================================================== -->
+
+<header class="site-header">
+
+    <!--
+        Top-left logo / home button.
+        Since we're already on the homepage,
+        this still links back to index.html.
+    -->
+    <a
+        href="index.html"
+        class="site-header__name"
+        aria-label="Roland — Home"
+    >
+        Roland.
+    </a>
+
+
+    <!--
+        Center navigation.
+    -->
+    <nav
+        class="site-header__nav"
+        aria-label="Primary navigation"
+    >
+
+        <a href="music.html">
+            Music
+        </a>
+
+        <a href="engineering.html">
+            Engineering
+        </a>
+
+        <a href="community.html">
+            Community
+        </a>
+
+        <a href="writing.html">
+            Writing
+        </a>
+
+    </nav>
+
+
+    <!--
+        Your existing script.js can continue updating
+        this element with Toronto time.
+    -->
+    <div
+        id="toronto-clock"
+        class="site-header__clock"
+        aria-label="Current time in Toronto"
+    >
+        Toronto
+    </div>
+
+</header>
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+    <main>
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+        <section
+            id="home"
+            class="hero"
+            aria-labelledby="hero-title"
+        >
+
+            <!--
+                Cursor image layer.
+
+                JavaScript dynamically creates temporary
+                images inside this element when the mouse
+                moves across the hero.
+            -->
+            <div
+                id="cursor-pop-layer"
+                class="cursor-pop-layer"
+                aria-hidden="true"
+            ></div>
+
+
+            <!--
+                The large central name.
+
+                JavaScript modifies:
+                - opacity
+                - blur
+                - scale
+
+                as the page scrolls.
+            -->
+            <div class="hero-name-wrapper">
+                <h1 id="hero-title" class="hero-name">
+                    Roland.
+                </h1>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT ME
+             ===================================================== -->
+        <section
+            id="about"
+            class="about section-reveal"
+            aria-labelledby="about-heading"
+        >
+
+            <div class="content-container">
+
+                <p class="section-label">
+                    About
+                </p>
+
+                <h2 id="about-heading">
+                    About Me
+                </h2>
+
+                <!--
+                    REPLACE THIS TEXT with your actual biography.
+                -->
+                <p class="about-text">
+                    Hey, I'm Roland. I'm a 16-year-old from Toronto who 
+                    loves tech, engineering, music, and anything that involves 
+                    creative problem-solving. Welcome to my museum of creations, 
+                    which showcases my past and present interests, and inklings 
+                    to potential future endeavors.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CATEGORY PILLARS
+             ===================================================== -->
+        <section
+            id="categories"
+            class="categories"
+            aria-labelledby="categories-heading"
+        >
+
+            <div class="content-container">
+
+                <p class="section-label">
+                    Explore
+                </p>
+
+                <h2 id="categories-heading" class="sr-only">
+                    Portfolio Categories
+                </h2>
+
+                <div class="category-grid">
+
+                    <!-- MUSIC -->
+                    <a
+                        href="music.html"
+                        class="category-card section-reveal"
+                        data-category="music"
+                    >
+                        <span class="category-number">
+                            01
+                        </span>
+
+                        <span class="category-title">
+                            Music
+                        </span>
+
+                        <span class="category-arrow">
+                            →
+                        </span>
+                    </a>
+
+
+                    <!-- ENGINEERING -->
+                    <a
+                        href="engineering.html"
+                        class="category-card section-reveal"
+                        data-category="engineering"
+                    >
+                        <span class="category-number">
+                            02
+                        </span>
+
+                        <span class="category-title">
+                            Engineering
+                        </span>
+
+                        <span class="category-arrow">
+                            →
+                        </span>
+                    </a>
+
+
+                    <!-- COMMUNITY -->
+                    <a
+                        href="community.html"
+                        class="category-card section-reveal"
+                        data-category="community"
+                    >
+                        <span class="category-number">
+                            03
+                        </span>
+
+                        <span class="category-title">
+                            Community
+                        </span>
+
+                        <span class="category-arrow">
+                            →
+                        </span>
+                    </a>
+
+
+                    <!-- WRITING -->
+                    <a
+                        href="writing.html"
+                        class="category-card section-reveal"
+                        data-category="writing"
+                    >
+                        <span class="category-number">
+                            04
+                        </span>
+
+                        <span class="category-title">
+                            Writing
+                        </span>
+
+                        <span class="category-arrow">
+                            →
+                        </span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+        <footer class="site-footer">
+
+            <div class="content-container">
+
+                <!-- =================================================
+                     PHOTO GALLERY
+                     ================================================= -->
+                <section
+                    class="footer-gallery"
+                    aria-labelledby="gallery-heading"
+                >
+
+                    <div class="footer-heading-row">
+                        <p class="section-label">
+                            Archive
+                        </p>
+
+                        <h2 id="gallery-heading">
+                            Selected Moments
+                        </h2>
+                    </div>
+
+
+                    <!--
+                        PLACEHOLDER IMAGES:
+
+                        Replace:
+                        images/gallery-01.jpg
+                        images/gallery-02.jpg
+                        etc.
+
+                        with your actual photos.
+                    -->
+                    <div class="gallery-grid">
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-01.jpg"
+                                alt="Portfolio photograph 1"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-02.jpg"
+                                alt="Portfolio photograph 2"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-03.jpg"
+                                alt="Portfolio photograph 3"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-04.jpg"
+                                alt="Portfolio photograph 4"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-05.jpg"
+                                alt="Portfolio photograph 5"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                        <figure class="gallery-item section-reveal">
+                            <img
+                                src="images/gallery-06.jpg"
+                                alt="Portfolio photograph 6"
+                                loading="lazy"
+                            />
+                        </figure>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     CONTACT
+                     ================================================= -->
+                <section
+                    class="contact-section"
+                    aria-labelledby="contact-heading"
+                >
+
+                    <div>
+                        <p class="section-label">
+                            Contact
+                        </p>
+
+                        <h2 id="contact-heading">
+                            Let's Connect.
+                        </h2>
+                    </div>
+
+
+                    <div class="contact-links">
+
+                        <!--
+                            Replace these placeholder links
+                            with your actual contact information.
+                        -->
+
+                        <a
+                            href="mailto:rolandding1007@gmail.com"
+                            class="contact-link"
+                        >
+                            Email
+                        </a>
+
+                        <a
+                            href="https://www.instagram.com/_r014nd_/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link"
+                        >
+                            Instagram
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/in/roland-ding-085025352/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link"
+                        >
+                            LinkedIn
+                        </a>
+
+                        <a
+                            href="https://open.spotify.com/artist/5dKHX4kZrWJDdj8Nybg2la?si=z5fyQTNGR42-eQhkdFoxZQ"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="contact-link"
+                        >
+                            Spotify
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     COPYRIGHT / FOOTER META
+                     ================================================= -->
+                <div class="footer-bottom">
+
+                    <span>
+                        © <span id="current-year"></span> Roland.
+                    </span>
+
+                    <span>
+                        Toronto, Canada
+                    </span>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>

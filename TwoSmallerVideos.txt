@@ -1,0 +1,13 @@
+<div class="video-grid">
+
+    <!-- Your first video figure goes here -->
+    <figure class="video-showcase-item">
+        ...
+    </figure>
+
+    <!-- Your second video figure goes here -->
+    <figure class="video-showcase-item">
+        ...
+    </figure>
+
+</div>

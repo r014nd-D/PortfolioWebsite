@@ -1,0 +1,4520 @@
+/* ================================================================
+   GLOBAL CUSTOMIZATION VARIABLES
+   ----------------------------------------------------------------
+   Most of the site's visual behavior can be changed here without
+   touching the rest of the stylesheet.
+   ================================================================ */
+
+:root {
+
+    /* ------------------------------------------------------------
+       COLORS
+       ------------------------------------------------------------ */
+
+    --color-background: #ffffff;
+    --color-foreground: #000000;
+    --color-muted: #6f6f6f;
+    --color-border: #000000;
+    --color-white: #ffffff;
+    --color-black: #000000;
+
+
+    /* ------------------------------------------------------------
+       TYPOGRAPHY
+       ------------------------------------------------------------ */
+
+    --font-main:
+        Inter,
+        Helvetica Neue,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    --font-size-body: 1rem;
+    --font-size-nav: 0.85rem;
+
+    --font-size-hero:
+        clamp(4rem, 12vw, 13rem);
+
+    --font-size-section:
+        clamp(2.5rem, 6vw, 7rem);
+
+
+    /* ------------------------------------------------------------
+       SPACING
+       ------------------------------------------------------------ */
+
+    --page-padding:
+        clamp(1.25rem, 4vw, 4rem);
+
+    --section-spacing:
+        clamp(6rem, 15vw, 15rem);
+
+
+    /* ------------------------------------------------------------
+       BORDERS
+       ------------------------------------------------------------ */
+
+    --border-width: 1px;
+
+
+    /* ------------------------------------------------------------
+       ANIMATION SETTINGS
+       ------------------------------------------------------------ */
+
+    --transition-fast: 180ms ease;
+    --transition-medium: 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slow: 900ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    --reveal-distance: 30px;
+    --hero-blur-max: 14px;
+
+
+    /* ------------------------------------------------------------
+       CATEGORY CARD
+       ------------------------------------------------------------ */
+
+    --card-height:
+        clamp(28rem, 60vh, 48rem);
+}
+
+
+/* ================================================================
+   RESET
+   ================================================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: var(--color-background);
+    color: var(--color-foreground);
+
+    font-family: var(--font-main);
+    font-size: var(--font-size-body);
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+}
+
+
+/* Remove default link styling */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* Images should never overflow their containers */
+
+img {
+    display: block;
+    width: 100%;
+}
+
+
+/* ================================================================
+   ACCESSIBILITY
+   ================================================================ */
+
+/*
+    Screen-reader-only utility.
+*/
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ================================================================
+   SHARED CONTAINER
+   ================================================================ */
+
+.content-container {
+    width: 100%;
+    max-width: 1800px;
+
+    margin: 0 auto;
+
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+}
+
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+
+/* ==========================================================
+   GLOBAL SITE HEADER
+   ==========================================================
+
+   Used across:
+   - Home
+   - Music
+   - Engineering
+   - Community
+   - Writing
+
+   The header remains fixed above the site and uses
+   white typography at all times.
+========================================================== */
+
+/* ==========================================================
+   GLOBAL SITE HEADER
+========================================================== */
+
+/* ==========================================================
+   GLOBAL SITE HEADER
+   ==========================================================
+   - Fixed at top
+   - Dark translucent glass
+   - CONTENT BEHIND HEADER IS INVERTED
+   - Clean modern typography
+========================================================== */
+
+.site-header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items: center;
+
+    padding:
+        1.15rem
+        var(--page-padding);
+
+
+    /* ======================================================
+       DARK TRANSPARENT INVERTING BACKDROP
+    ====================================================== */
+
+    /*
+     * Slight dark tint.
+     *
+     * Keep this fairly transparent so you can clearly
+     * see the page content moving underneath.
+     */
+    background:
+        rgba(0, 0, 0, 0.22);
+
+
+    /*
+     * THIS IS THE EFFECT YOU WERE ASKING FOR.
+     *
+     * Everything underneath the navbar is inverted:
+     *
+     * black  -> white
+     * white  -> black
+     * images -> inverted
+     * page text -> inverted
+     *
+     * Small blur gives it a glass-like finish.
+     */
+    backdrop-filter:
+        invert(1)
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        invert(1)
+        blur(5px);
+
+
+    /*
+     * Small lower edge so the header feels defined.
+     */
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.13);
+
+
+    /*
+     * IMPORTANT:
+     *
+     * Do NOT put mix-blend-mode here.
+     */
+    mix-blend-mode:
+        normal;
+
+
+    pointer-events:
+        none;
+}
+
+
+
+/* ==========================================================
+   HEADER LINKS
+========================================================== */
+
+.site-header a {
+    text-decoration:
+        none;
+
+    pointer-events:
+        auto;
+}
+
+
+
+/* ==========================================================
+   NEW HEADER FONT
+========================================================== */
+
+/*
+ * Much cleaner than the previous Helvetica treatment.
+ *
+ * Uses the native modern UI font on each device:
+ *
+ * macOS   -> SF Pro
+ * Windows -> Segoe UI
+ * Android -> system UI
+ */
+
+.site-header,
+.site-header__name,
+.site-header__nav,
+.site-header__nav a,
+.site-header__clock {
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    font-style:
+        normal;
+
+    text-rendering:
+        geometricPrecision;
+
+    -webkit-font-smoothing:
+        antialiased;
+    color:azure;
+}
+
+
+
+/* ==========================================================
+   ROLAND.
+========================================================== */
+
+.site-header__name {
+    justify-self:
+        start;
+
+    color:
+        #ffffff;
+
+    font-size:
+        0.84rem;
+
+    font-weight:
+        500;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.01em;
+
+    transition:
+        opacity
+        180ms
+        ease;
+}
+
+
+.site-header__name:hover {
+    opacity:
+        0.55;
+}
+
+
+
+/* ==========================================================
+   CENTER NAVIGATION
+========================================================== */
+
+.site-header__nav {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        clamp(
+            1.6rem,
+            2.6vw,
+            2.9rem
+        );
+}
+
+
+.site-header__nav a {
+
+    color:
+        #ffffff;
+
+    font-size:
+        0.76rem;
+
+    font-weight:
+        450;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.015em;
+
+    opacity:
+        0.68;
+
+    transition:
+        opacity
+        180ms
+        ease;
+}
+
+
+.site-header__nav a:hover {
+    opacity:
+        1;
+}
+
+
+/*
+ * Current page.
+ */
+.site-header__nav a[aria-current="page"] {
+    opacity:
+        1;
+}
+
+
+
+/* ==========================================================
+   TORONTO CLOCK
+========================================================== */
+
+.site-header__clock {
+    justify-self:
+        end;
+
+    color:
+        #ffffff;
+
+    font-size:
+        0.76rem;
+
+    font-weight:
+        450;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.015em;
+
+    white-space:
+        nowrap;
+
+    pointer-events:
+        auto;
+}
+
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 800px) {
+
+    .site-header {
+        grid-template-columns:
+            1fr
+            auto;
+
+        padding:
+            1rem
+            var(--page-padding);
+    }
+
+
+    .site-header__nav {
+        display:
+            none;
+    }
+
+
+    .site-header__clock {
+        justify-self:
+            end;
+    }
+
+}
+
+/* NAME / HOME */
+
+.nav-name {
+    justify-self: start;
+
+    font-size: var(--font-size-nav);
+    font-weight: 700;
+
+    letter-spacing: -0.02em;
+
+    transition:
+        opacity var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.nav-name:hover {
+    opacity: 0.5;
+    transform: translateX(-2px);
+}
+
+
+/* CENTER NAVIGATION */
+
+.main-nav {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap:
+        clamp(1.25rem, 4vw, 4rem);
+}
+
+
+.main-nav a {
+    position: relative;
+
+    font-size: var(--font-size-nav);
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition:
+        opacity var(--transition-fast);
+}
+html {
+    scroll-behavior: smooth;
+}
+
+
+/*
+    Underline animation.
+*/
+
+.main-nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 100%;
+    height: 1px;
+
+    background: var(--color-foreground);
+
+    transform:
+        scaleX(0);
+
+    transform-origin: right;
+
+    transition:
+        transform var(--transition-medium);
+}
+
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+    transform:
+        scaleX(1);
+
+    transform-origin: left;
+}
+
+
+/* CLOCK */
+
+.nav-clock {
+    justify-self: end;
+
+    font-size: var(--font-size-nav);
+
+    font-variant-numeric: tabular-nums;
+
+    letter-spacing: 0.04em;
+}
+
+
+/* ================================================================
+   HERO
+   ================================================================ */
+
+.hero {
+
+    /*
+        100vh gives us a large cinematic first screen.
+    */
+
+    height: 100vh;
+    min-height: 700px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    /*
+        This provides separation from the fixed navigation.
+    */
+
+    padding-top: 72px;
+
+    cursor: crosshair;
+}
+
+
+/*
+    The wrapper remains centered.
+*/
+
+.hero-name-wrapper {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    /*
+        JavaScript modifies these custom properties as the user
+        scrolls.
+
+        Keeping the values in CSS variables makes the effect
+        easier to customize.
+    */
+
+    --hero-opacity: 1;
+    --hero-blur: 0px;
+    --hero-scale: 1;
+
+    opacity: var(--hero-opacity);
+
+    filter:
+        blur(var(--hero-blur));
+
+    transform:
+        scale(var(--hero-scale));
+
+    transition:
+        opacity 80ms linear,
+        filter 80ms linear,
+        transform 80ms linear;
+
+    will-change:
+        opacity,
+        filter,
+        transform;
+}
+
+
+/*
+    Large central name.
+*/
+
+.hero-name {
+    margin: 0;
+
+    font-size: var(--font-size-hero);
+
+    font-weight: 900;
+
+    line-height: 0.85;
+
+    letter-spacing: -0.075em;
+
+    white-space: nowrap;
+
+    user-select: none;
+}
+
+
+/* ================================================================
+   CURSOR IMAGE POP LAYER
+   ================================================================ */
+
+.cursor-pop-layer {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/*
+    Every image dynamically created by JavaScript receives
+    .cursor-pop.
+*/
+
+.cursor-pop {
+    position: absolute;
+
+    width:
+        clamp(120px, 14vw, 220px);
+
+    aspect-ratio: 3 / 4;
+
+    object-fit: cover;
+
+    /*
+        Images are initially centered on the mouse coordinates.
+    */
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.75)
+        rotate(var(--random-rotation));
+
+    opacity: 0;
+
+    filter:
+        grayscale(100%)
+        blur(2px);
+
+    animation:
+        cursorImageInOut
+        var(--cursor-image-duration)
+        cubic-bezier(0.22, 1, 0.36, 1)
+        forwards;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.12);
+
+    will-change:
+        transform,
+        opacity,
+        filter;
+}
+
+
+/*
+    Cursor image animation.
+
+    Customize timing in script.js.
+*/
+
+@keyframes cursorImageInOut {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.7)
+            rotate(var(--random-rotation));
+
+        filter:
+            grayscale(100%)
+            blur(8px);
+    }
+
+    15% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotate(var(--random-rotation));
+
+        filter:
+            grayscale(100%)
+            blur(0px);
+    }
+
+    75% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.05)
+            rotate(var(--random-rotation));
+
+        filter:
+            grayscale(100%)
+            blur(6px);
+    }
+}
+
+
+/* ================================================================
+   SECTION LABEL
+   ================================================================ */
+
+.section-label {
+    margin: 0 0 1rem;
+
+    font-size: 0.75rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* ================================================================
+   ABOUT
+   ================================================================ */
+
+.about {
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+}
+
+
+.about h2 {
+    margin:
+        0
+        0
+        2rem;
+
+    font-size: var(--font-size-section);
+
+    font-weight: 800;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.05em;
+}
+
+
+.about-text {
+    max-width: 900px;
+
+    margin: 0;
+
+    font-size:
+        clamp(1.3rem, 2.7vw, 2.5rem);
+
+    line-height: 1.2;
+
+    letter-spacing: -0.025em;
+}
+
+
+/* ================================================================
+   GENERIC SCROLL REVEAL
+   ================================================================ */
+
+/*
+    JavaScript adds .is-visible when the element enters
+    the viewport.
+*/
+
+.section-reveal {
+
+    opacity: 0;
+
+    transform:
+        translateY(var(--reveal-distance))
+        scale(0.98);
+
+    filter:
+        blur(8px);
+
+    transition:
+        opacity var(--transition-slow),
+        transform var(--transition-slow),
+        filter var(--transition-slow);
+}
+
+
+.section-reveal.is-visible {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    filter:
+        blur(0);
+}
+
+
+/* ================================================================
+   CATEGORY SECTION
+   ================================================================ */
+
+.categories {
+
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+}
+
+
+.category-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+
+    border:
+        var(--border-width)
+        solid
+        var(--color-foreground);
+}
+
+
+/*
+    CATEGORY CARDS
+*/
+
+.category-card {
+
+    position: relative;
+
+    min-height: var(--card-height);
+
+    padding: 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    background: var(--color-background);
+
+    transition:
+        color var(--transition-medium),
+        background var(--transition-medium);
+}
+
+
+/*
+    Animated black fill.
+
+    We use a pseudo-element instead of JavaScript for this.
+*/
+
+.category-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--color-black);
+
+    transform:
+        translateY(101%);
+
+    transition:
+        transform var(--transition-medium);
+
+    z-index: 0;
+}
+
+
+.category-card:hover::before,
+.category-card:focus-visible::before {
+
+    transform:
+        translateY(0);
+}
+
+
+/*
+    Card text sits above the animated background.
+*/
+
+.category-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+.category-number {
+
+    font-size: 0.75rem;
+
+    font-weight: 500;
+}
+
+
+.category-title {
+
+    font-size:
+        clamp(2rem, 3.8vw, 4.5rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.06em;
+
+    font-weight: 800;
+}
+
+
+.category-arrow {
+
+    align-self: flex-end;
+
+    font-size: 2rem;
+
+    transition:
+        transform var(--transition-medium);
+}
+
+
+.category-card:hover .category-arrow,
+.category-card:focus-visible .category-arrow {
+
+    transform:
+        translateX(8px);
+}
+
+
+/*
+    Because the card background becomes black,
+    invert the text.
+*/
+
+.category-card:hover,
+.category-card:focus-visible {
+
+    color: var(--color-white);
+}
+
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+
+.site-footer {
+
+    padding-top: var(--section-spacing);
+
+    padding-bottom: 2rem;
+
+    border-top:
+        var(--border-width)
+        solid
+        var(--color-border);
+}
+
+
+/* ================================================================
+   GALLERY
+   ================================================================ */
+
+.footer-gallery {
+
+    padding-bottom: var(--section-spacing);
+}
+
+
+.footer-heading-row {
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    margin-bottom: 3rem;
+}
+
+
+.footer-heading-row h2 {
+
+    margin: 0;
+
+    font-size:
+        clamp(2.5rem, 6vw, 7rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.06em;
+
+    font-weight: 800;
+}
+
+
+/*
+    Responsive gallery grid.
+*/
+
+.gallery-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+}
+
+
+.gallery-item {
+
+    margin: 0;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.gallery-item img {
+
+    height: 100%;
+
+    object-fit: cover;
+
+    filter:
+        grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.gallery-item:hover img {
+
+    transform:
+        scale(1.04);
+
+    filter:
+        grayscale(0%);
+}
+
+
+/* ================================================================
+   CONTACT
+   ================================================================ */
+
+.contact-section {
+
+    min-height: 65vh;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    align-items: center;
+
+    gap: 3rem;
+
+    border-top:
+        var(--border-width)
+        solid
+        var(--color-border);
+
+    padding-top:
+        var(--section-spacing);
+
+    padding-bottom:
+        var(--section-spacing);
+}
+
+
+.contact-section h2 {
+
+    margin: 0;
+
+    font-size:
+        clamp(3rem, 7vw, 8rem);
+
+    line-height: 0.9;
+
+    letter-spacing: -0.07em;
+
+    font-weight: 800;
+}
+
+
+.contact-links {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 1rem;
+}
+
+
+.contact-link {
+
+    font-size:
+        clamp(1.25rem, 2vw, 2rem);
+
+    border-bottom:
+        1px solid
+        transparent;
+
+    transition:
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.contact-link:hover {
+
+    border-color:
+        var(--color-foreground);
+
+    transform:
+        translateX(6px);
+}
+
+
+/* ================================================================
+   FOOTER BOTTOM
+   ================================================================ */
+
+.footer-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding-top: 1.5rem;
+
+    border-top:
+        var(--border-width)
+        solid
+        var(--color-border);
+
+    font-size:
+        0.75rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* ================================================================
+   FOCUS STATES
+   ================================================================ */
+
+a:focus-visible {
+
+    outline:
+        2px solid
+        var(--color-black);
+
+    outline-offset:
+        5px;
+}
+
+
+/* ================================================================
+   TABLET
+   ================================================================ */
+
+@media (max-width: 900px) {
+
+    .site-header {
+
+        grid-template-columns:
+            1fr
+            auto;
+    }
+
+
+    /*
+        Navigation becomes slightly smaller and moves to the
+        second row conceptually by allowing wrapping.
+    */
+
+    .main-nav {
+
+        position: absolute;
+
+        left: 50%;
+
+        transform:
+            translateX(-50%);
+
+        top: 72px;
+
+        width: 100%;
+
+        justify-content: center;
+
+        padding:
+            0.75rem
+            var(--page-padding);
+
+        background:
+            rgba(255, 255, 255, 0.96);
+
+        border-bottom:
+            1px solid
+            var(--color-border);
+
+        gap:
+            clamp(0.9rem, 4vw, 2rem);
+    }
+
+
+    .hero {
+
+        padding-top: 110px;
+    }
+
+
+    .category-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .category-card {
+
+        min-height:
+            50vh;
+    }
+
+
+    .contact-section {
+
+        grid-template-columns:
+            1fr;
+    }
+}
+
+
+/* ================================================================
+   MOBILE
+   ================================================================ */
+
+@media (max-width: 600px) {
+
+    :root {
+
+        --page-padding: 1rem;
+
+        --card-height:
+            60vh;
+    }
+
+
+    .site-header {
+
+        height: 60px;
+    }
+
+
+    .main-nav {
+
+        top: 60px;
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+
+    .nav-clock {
+
+        font-size: 0.7rem;
+    }
+
+
+    .hero {
+
+        min-height: 100svh;
+
+        padding-top: 100px;
+    }
+
+
+    .hero-name {
+
+        /*
+            Allow the name to shrink enough to fit phones.
+        */
+
+        font-size:
+            clamp(3.1rem, 17vw, 7rem);
+
+        white-space: normal;
+    }
+
+
+    .category-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .category-card {
+
+        min-height:
+            55vh;
+    }
+
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .footer-heading-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .footer-bottom {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+
+/* ================================================================
+   REDUCED MOTION
+   ================================================================ */
+
+/*
+    Respects the user's OS accessibility preference.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+
+
+    .cursor-pop-layer {
+        display: none;
+    }
+}
+
+/* ================================================================
+   MUSIC PAGE
+   ----------------------------------------------------------------
+   Additional styles for the image-heavy Music subpage.
+   All existing homepage styles remain untouched.
+   ================================================================ */
+
+
+/* ================================================================
+   MUSIC HERO
+   ================================================================ */
+
+.music-hero {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: flex-end;
+
+    padding-top: 72px;
+    padding-bottom: clamp(4rem, 10vw, 9rem);
+}
+
+
+.music-hero-inner {
+    width: 100%;
+}
+
+
+.music-hero h1 {
+    margin: 0;
+
+    font-size:
+        clamp(5rem, 19vw, 18rem);
+
+    font-weight: 900;
+
+    line-height: 0.78;
+
+    letter-spacing: -0.085em;
+}
+
+
+/* ================================================================
+   SHARED MUSIC SECTION
+   ================================================================ */
+
+.music-section {
+    padding-top: var(--section-spacing);
+    padding-bottom: var(--section-spacing);
+}
+
+
+/* ================================================================
+   ALTERNATING SPLIT LAYOUT
+   ================================================================ */
+
+.music-split {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.85fr)
+        minmax(0, 1.15fr);
+
+    align-items: center;
+
+    gap:
+        clamp(3rem, 8vw, 10rem);
+}
+
+
+.music-split--right {
+    grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(0, 0.85fr);
+}
+
+
+.music-split--right .music-image-grid {
+    order: 1;
+}
+
+
+.music-split--right .music-copy {
+    order: 2;
+}
+
+
+/* ================================================================
+   MUSIC COPY
+   ================================================================ */
+
+.music-copy {
+    max-width: 650px;
+}
+
+
+.music-copy h2 {
+    margin:
+        0
+        0
+        2rem;
+
+    font-size:
+        clamp(3rem, 6vw, 7rem);
+
+    font-weight: 800;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.065em;
+}
+
+
+.music-copy > p:not(.section-label) {
+    margin:
+        0
+        0
+        1.5rem;
+
+    max-width: 580px;
+
+    font-size:
+        clamp(1.05rem, 1.5vw, 1.35rem);
+
+    line-height: 1.45;
+}
+
+
+/* ================================================================
+   LARGE FEATURE IMAGE
+   ================================================================ */
+
+.music-feature-image {
+    position: relative;
+
+    margin: 0;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-feature-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.music-feature-image:hover img {
+    transform: scale(1.035);
+    filter: grayscale(0%);
+}
+
+
+/* ================================================================
+   TWO-IMAGE PERFORMANCE GRID
+   ================================================================ */
+
+.music-image-grid--two {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+}
+
+
+.music-grid-image {
+    position: relative;
+
+    margin: 0;
+
+    min-width: 0;
+
+    aspect-ratio: 3 / 4;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-grid-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.music-grid-image:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+}
+
+
+/* ================================================================
+   PERFORMANCE DETAIL LIST
+   ================================================================ */
+
+.music-detail-list {
+    margin-top: 3rem;
+
+    border-top:
+        1px solid
+        var(--color-border);
+}
+
+
+.music-detail-list > div {
+    display: grid;
+
+    grid-template-columns:
+        50px
+        1fr;
+
+    gap: 1rem;
+
+    padding:
+        1rem
+        0;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.music-detail-list span {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+.music-detail-list p {
+    margin: 0;
+
+    font-size: 1rem;
+}
+
+
+/* ================================================================
+   SECTION HEADING
+   ================================================================ */
+
+.music-section-heading {
+    margin-bottom:
+        clamp(3rem, 7vw, 6rem);
+}
+
+
+.music-section-heading h2 {
+    max-width: 950px;
+
+    margin: 0;
+
+    font-size:
+        clamp(3.5rem, 9vw, 10rem);
+
+    font-weight: 800;
+
+    line-height: 0.86;
+
+    letter-spacing: -0.075em;
+}
+
+
+.music-intro-copy {
+    max-width: 700px;
+
+    margin:
+        2rem
+        0
+        0;
+
+    font-size:
+        clamp(1.1rem, 1.8vw, 1.5rem);
+
+    line-height: 1.4;
+}
+
+
+/* ================================================================
+   PERFORMANCE MOSAIC
+   ================================================================ */
+
+.music-mosaic {
+    display: grid;
+
+    grid-template-columns:
+        repeat(12, minmax(0, 1fr));
+
+    grid-template-rows:
+        repeat(2, minmax(250px, 34vw));
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+}
+
+
+.music-mosaic-item {
+    margin: 0;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-mosaic-item--large {
+    grid-column:
+        1 / span 7;
+
+    grid-row:
+        1 / span 2;
+}
+
+
+.music-mosaic-item--small {
+    grid-column:
+        8 / span 5;
+}
+
+
+.music-mosaic-item--wide {
+    grid-column:
+        8 / span 5;
+}
+
+
+.music-mosaic-item img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.music-mosaic-item:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+}
+
+
+/* ================================================================
+   CLUB GALLERY
+   ================================================================ */
+
+.music-club-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+}
+
+
+.music-club-image {
+    margin: 0;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-club-image:nth-child(1) {
+    grid-column:
+        span 2;
+
+    aspect-ratio: 2 / 1;
+}
+
+
+.music-club-image:nth-child(4) {
+    grid-column:
+        span 2;
+
+    aspect-ratio: 2 / 1;
+}
+
+
+.music-club-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.music-club-image:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+}
+
+
+/* ================================================================
+   ALBUM / DISCOGRAPHY LAYOUT
+   ================================================================ */
+
+.music-album-layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.9fr)
+        minmax(0, 1.1fr);
+
+    gap:
+        clamp(3rem, 8vw, 9rem);
+
+    align-items: start;
+}
+
+
+/* ================================================================
+   ALBUM IMAGE AREA
+   ================================================================ */
+
+.music-album-gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 1px;
+
+    background: var(--color-foreground);
+}
+
+
+.music-album-art {
+    grid-column:
+        1 / -1;
+
+    margin: 0;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-studio-image {
+    margin: 0;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.music-album-art img,
+.music-studio-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+
+.music-album-art:hover img,
+.music-studio-image:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0%);
+}
+
+
+/* ================================================================
+   SPOTIFY COLUMN
+   ================================================================ */
+
+.spotify-column {
+    position: sticky;
+
+    top: 110px;
+}
+
+
+.spotify-heading {
+    margin-bottom: 1.5rem;
+}
+
+
+.spotify-heading h3 {
+    margin: 0;
+
+    font-size:
+        clamp(2.5rem, 5vw, 5rem);
+
+    font-weight: 800;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.06em;
+}
+
+
+.spotify-frame {
+    width: 100%;
+
+    border:
+        1px solid
+        var(--color-border);
+
+    background: var(--color-white);
+
+    overflow: hidden;
+}
+
+
+.spotify-frame iframe {
+    display: block;
+
+    width: 100%;
+
+    border: 0;
+}
+
+
+/* ================================================================
+   CLOSING STATEMENT
+   ================================================================ */
+
+.music-closing {
+    min-height: 80vh;
+
+    display: flex;
+    align-items: center;
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.music-closing-inner {
+    max-width: 1200px;
+}
+
+
+.music-closing-inner p {
+    margin: 0;
+
+    font-size:
+        clamp(3rem, 7vw, 8rem);
+
+    font-weight: 800;
+
+    line-height: 0.9;
+
+    letter-spacing: -0.075em;
+}
+
+
+/* ================================================================
+   TABLET
+   ================================================================ */
+
+@media (max-width: 900px) {
+
+    .music-split,
+    .music-split--right,
+    .music-album-layout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .music-split--right .music-image-grid {
+        order: 1;
+    }
+
+
+    .music-split--right .music-copy {
+        order: 2;
+    }
+
+
+    .music-copy {
+        max-width: none;
+    }
+
+
+    .music-mosaic {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        grid-template-rows:
+            auto;
+    }
+
+
+    .music-mosaic-item--large,
+    .music-mosaic-item--small,
+    .music-mosaic-item--wide {
+        grid-column: auto;
+        grid-row: auto;
+
+        aspect-ratio: 4 / 3;
+    }
+
+
+    .music-mosaic-item--large {
+        grid-column: 1 / -1;
+
+        aspect-ratio: 16 / 9;
+    }
+
+
+    .spotify-column {
+        position: static;
+    }
+}
+
+
+/* ================================================================
+   MOBILE
+   ================================================================ */
+
+@media (max-width: 600px) {
+
+    .music-hero {
+        min-height: 75svh;
+
+        align-items: flex-end;
+
+        padding-bottom: 4rem;
+    }
+
+
+    .music-hero h1 {
+        font-size:
+            clamp(4.5rem, 24vw, 8rem);
+    }
+
+
+    .music-image-grid--two,
+    .music-club-grid,
+    .music-album-gallery {
+        grid-template-columns: 1fr;
+    }
+
+
+    .music-club-image:nth-child(1),
+    .music-club-image:nth-child(4) {
+        grid-column: auto;
+
+        aspect-ratio: 1 / 1;
+    }
+
+
+    .music-mosaic {
+        grid-template-columns: 1fr;
+    }
+
+
+    .music-mosaic-item--large {
+        grid-column: auto;
+
+        aspect-ratio: 4 / 3;
+    }
+
+
+    .music-closing {
+        min-height: 60vh;
+    }
+
+
+    .spotify-frame iframe {
+        height: 500px;
+    }
+}
+
+/* ================================================================
+   VIDEO SHOWCASE
+   ----------------------------------------------------------------
+   Reusable responsive video layout.
+
+   This block supports:
+   - Local HTML5 MP4 videos
+   - YouTube embeds
+   - Vimeo embeds
+   - Responsive desktop/mobile layouts
+   - Existing .section-reveal animations
+   ================================================================ */
+
+
+/* ================================================================
+   MAIN CONTAINER
+   ================================================================ */
+
+.video-showcase {
+    width: 100%;
+
+    padding-top:
+        var(--section-spacing);
+
+    padding-bottom:
+        var(--section-spacing);
+}
+
+
+.video-showcase-inner {
+    width: 100%;
+
+    max-width: 1600px;
+
+    margin:
+        0 auto;
+
+    padding-left:
+        var(--page-padding);
+
+    padding-right:
+        var(--page-padding);
+}
+
+
+/* ================================================================
+   HEADING
+   ================================================================ */
+
+.video-showcase-heading {
+    margin-bottom:
+        clamp(2.5rem, 6vw, 6rem);
+}
+
+
+.video-showcase-heading h2 {
+    margin: 0;
+
+    font-size:
+        clamp(3rem, 8vw, 9rem);
+
+    font-weight: 800;
+
+    line-height: 0.88;
+
+    letter-spacing: -0.07em;
+}
+
+
+/* ================================================================
+   VIDEO ITEM LAYOUT
+   ================================================================ */
+
+.video-showcase-item {
+    margin:
+        0 0
+        clamp(4rem, 10vw, 10rem);
+}
+
+
+.video-showcase-item:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ================================================================
+   VIDEO FRAME
+   ================================================================ */
+
+/*
+    Shared wrapper around both types of video.
+
+    The border keeps the media visually consistent with the
+    monochrome design.
+*/
+
+.video-frame {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background:
+        var(--color-black);
+
+    border:
+        1px solid
+        var(--color-border);
+}
+
+
+/* ================================================================
+   LOCAL VIDEO
+   ================================================================ */
+
+/*
+    The local video uses a 16:9 frame.
+
+    Change the aspect-ratio here if you want a cinematic
+    21:9 layout or a taller portrait video.
+*/
+
+.video-frame--local {
+    aspect-ratio: 16 / 9;
+}
+
+
+.video-frame--local .showcase-video {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    /*
+        Maintains your site's monochrome visual language.
+
+        Remove grayscale(100%) if you want the original video
+        colors to remain visible.
+    */
+    filter:
+        grayscale(100%);
+
+    transition:
+        filter var(--transition-medium);
+}
+
+
+/*
+    Optional hover behavior.
+*/
+
+.video-showcase-item:hover
+.video-frame--local .showcase-video {
+    filter:
+        grayscale(0%);
+}
+
+
+/* ================================================================
+   YOUTUBE / VIMEO EMBED
+   ================================================================ */
+
+/*
+    The aspect-ratio property makes the iframe responsive
+    without JavaScript.
+
+    16:9 = standard widescreen video.
+*/
+
+.video-frame--embed {
+    aspect-ratio: 16 / 9;
+}
+
+
+.showcase-embed {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    border: 0;
+
+    background:
+        var(--color-black);
+}
+
+
+/* ================================================================
+   CAPTIONS
+   ================================================================ */
+
+.video-caption {
+    display: grid;
+
+    grid-template-columns:
+        minmax(160px, 0.35fr)
+        minmax(0, 1fr);
+
+    gap:
+        2rem;
+
+    padding-top:
+        1rem;
+
+    border-top:
+        1px solid
+        var(--color-border);
+}
+
+
+.video-caption-title {
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.12em;
+}
+
+
+.video-caption-text {
+    max-width:
+        800px;
+
+    font-size:
+        clamp(0.95rem, 1.3vw, 1.15rem);
+
+    line-height:
+        1.4;
+
+    color:
+        var(--color-muted);
+}
+
+
+/* ================================================================
+   ALTERNATIVE: CENTERED NARROW VIDEO
+   ----------------------------------------------------------------
+   Add .video-showcase--narrow to the <section> if you later want
+   a smaller presentation rather than a full-width video.
+   ================================================================ */
+
+.video-showcase--narrow .video-showcase-inner {
+    max-width:
+        1100px;
+}
+
+
+/* ================================================================
+   MOBILE / TABLET
+   ================================================================ */
+
+@media (max-width: 700px) {
+
+    .video-caption {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            0.5rem;
+    }
+
+
+    .video-caption-title {
+        margin-bottom:
+            0.25rem;
+    }
+
+
+    .video-showcase-item {
+        margin-bottom:
+            4rem;
+    }
+}
+
+
+/* ================================================================
+   ACCESSIBILITY / REDUCED MOTION
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .video-frame--local .showcase-video {
+        transition: none;
+    }
+}
+/* ================================================================
+   SIDE-BY-SIDE VIDEO GRID (UPDATED)
+   ================================================================ */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* minmax(0, 1fr) prevents content from blowing out the grid */
+    width: 100%;
+}
+
+.video-grid .video-showcase-item {
+    margin: 0;
+    min-width: 0; /* Crucial for grid items containing iframes */
+}
+
+@media (max-width: 900px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ================================================================
+   DISCIPLINE & GROWTH — CARD LAYOUT
+   ================================================================ */
+
+.music-discipline-block {
+    margin-bottom:
+        clamp(8rem, 16vw, 16rem);
+}
+
+.music-discipline-block:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Subsection heading */
+
+.music-copy h3 {
+    margin:
+        0
+        0
+        2rem;
+
+    font-size:
+        clamp(2.5rem, 5vw, 5.5rem);
+
+    line-height: 0.9;
+
+    font-weight: 800;
+
+    letter-spacing: -0.065em;
+}
+
+
+/* ================================================================
+   DETAIL CARDS
+   ================================================================ */
+
+.music-detail-cards {
+    margin-top: 3rem;
+
+    border-top:
+        1px solid
+        var(--color-border);
+}
+
+
+.music-detail-card {
+    display: grid;
+
+    grid-template-columns:
+        minmax(120px, 0.3fr)
+        minmax(0, 1fr);
+
+    gap: 2rem;
+
+    padding:
+        1.5rem 0;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.music-detail-card-meta {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.25rem;
+}
+
+
+.music-detail-card-label {
+    font-size:
+        0.65rem;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.12em;
+
+    color:
+        var(--color-muted);
+}
+
+
+.music-detail-card-value {
+    font-size:
+        0.95rem;
+
+    font-weight:
+        600;
+}
+
+
+.music-detail-card-content h4 {
+    margin:
+        0 0 0.5rem;
+
+    font-size:
+        clamp(1.2rem, 1.8vw, 1.6rem);
+
+    line-height:
+        1.1;
+
+    font-weight:
+        700;
+}
+
+
+.music-detail-card-content p {
+    margin: 0;
+
+    max-width: 550px;
+
+    font-size:
+        0.95rem;
+
+    line-height:
+        1.45;
+
+    color:
+        var(--color-muted);
+}
+
+
+/* ================================================================
+   REVERSE LAYOUT
+   ----------------------------------------------------------------
+   Keeps the semantic class you requested while leveraging the
+   existing Music split system.
+   ================================================================ */
+
+.music-split.reverse-layout .music-feature-image {
+    order: 1;
+}
+
+.music-split.reverse-layout .music-copy {
+    order: 2;
+}
+
+
+/* ================================================================
+   MOBILE
+   ================================================================ */
+
+@media (max-width: 700px) {
+
+    .music-detail-card {
+        grid-template-columns: 1fr;
+
+        gap: 0.75rem;
+    }
+
+    .music-detail-card-meta {
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+    }
+
+    .music-split.reverse-layout .music-feature-image,
+    .music-split.reverse-layout .music-copy {
+        order: initial;
+    }
+}
+/* ================================================================
+   ENGINEERING PAGE
+   ----------------------------------------------------------------
+   Engineering-specific styles.
+
+   The existing global variables, navigation, footer,
+   .content-container, .section-reveal, etc. are reused.
+   ================================================================ */
+/* ==========================================================
+   ENGINEERING PAGE
+   ==========================================================
+   Matches the typography, spacing, weight, image treatment,
+   borders, and responsive rhythm of the Music page.
+========================================================== */
+
+
+/* ==========================================================
+   PAGE BASE
+========================================================== */
+
+/* ==========================================================
+   ENGINEERING PAGE
+   Original pre-3D layout
+========================================================== */
+
+
+/* ==========================================================
+   BASE
+========================================================== */
+
+.engineering-page {
+    background:
+        var(--color-background);
+
+    color:
+        var(--color-foreground);
+}
+
+
+.engineering-page img,
+.engineering-page video {
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+}
+
+
+
+/* ==========================================================
+   SHARED ENGINEERING LABELS
+========================================================== */
+
+.engineering-page .section-label,
+.engineering-kicker {
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.08em;
+
+    text-transform:
+        uppercase;
+}
+
+
+
+/* ==========================================================
+   ENGINEERING HERO
+========================================================== */
+
+.engineering-hero {
+    min-height:
+        100svh;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    padding:
+        clamp(
+            9rem,
+            16vh,
+            13rem
+        )
+        0
+        clamp(
+            4rem,
+            7vw,
+            7rem
+        );
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-hero .content-container {
+    width:
+        100%;
+}
+
+
+.engineering-hero-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(18rem, 0.55fr);
+
+    gap:
+        clamp(
+            4rem,
+            9vw,
+            10rem
+        );
+
+    align-items:
+        end;
+
+    margin-top:
+        clamp(
+            4rem,
+            8vw,
+            8rem
+        );
+}
+
+
+.engineering-hero h1 {
+    margin:
+        0;
+
+    max-width:
+        90rem;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            4.5rem,
+            10vw,
+            11rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.84;
+
+    letter-spacing:
+        -0.075em;
+}
+
+
+.engineering-hero-copy {
+    max-width:
+        31rem;
+}
+
+
+.engineering-hero-copy p {
+    margin:
+        0
+        0
+        1.5rem;
+
+    font-size:
+        clamp(
+            1rem,
+            1.35vw,
+            1.3rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        1.5;
+}
+
+
+
+/* ==========================================================
+   FEATURED INNOVATION
+========================================================== */
+
+.engineering-feature {
+    padding:
+        var(--section-spacing)
+        0;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-section-header {
+    padding-bottom:
+        1.25rem;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+
+/* ----------------------------------------------------------
+   FEATURE GRID
+
+   Original split:
+   1.1fr image / 0.9fr copy
+---------------------------------------------------------- */
+
+.engineering-feature-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(0, 0.9fr);
+
+    gap:
+        clamp(
+            3rem,
+            7vw,
+            8rem
+        );
+
+    align-items:
+        stretch;
+
+    margin-top:
+        clamp(
+            4rem,
+            8vw,
+            8rem
+        );
+}
+
+
+
+/* ==========================================================
+   GENERAL ENGINEERING MEDIA
+========================================================== */
+
+.engineering-media {
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    margin:
+        0;
+
+    background:
+        #e9e9e9;
+}
+
+
+.engineering-media img,
+.engineering-media video {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    filter:
+        grayscale(100%);
+}
+
+
+
+/* ----------------------------------------------------------
+   FEATURE IMAGE
+---------------------------------------------------------- */
+
+.engineering-media--feature {
+    aspect-ratio:
+        4 / 5;
+}
+
+
+
+/* ==========================================================
+   FEATURE COPY
+========================================================== */
+
+.engineering-feature-copy {
+    min-height:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        space-between;
+}
+
+
+.engineering-kicker {
+    margin-bottom:
+        2rem;
+}
+
+
+.engineering-feature-copy h2 {
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            3.5rem,
+            7vw,
+            8rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.86;
+
+    letter-spacing:
+        -0.075em;
+}
+
+
+.engineering-feature-text {
+    max-width:
+        38rem;
+
+    margin-top:
+        clamp(
+            5rem,
+            9vw,
+            10rem
+        );
+}
+
+
+.engineering-feature-text h3 {
+    margin:
+        0
+        0
+        2rem;
+
+    font-size:
+        clamp(
+            1.8rem,
+            3vw,
+            3.2rem
+        );
+
+    font-weight:
+        600;
+
+    line-height:
+        1.05;
+
+    letter-spacing:
+        -0.04em;
+}
+
+
+.engineering-feature-text p {
+    margin:
+        0
+        0
+        1.5rem;
+
+    font-size:
+        clamp(
+            1rem,
+            1.25vw,
+            1.2rem
+        );
+
+    line-height:
+        1.55;
+}
+
+
+
+/* ==========================================================
+   FEATURE LINK
+========================================================== */
+
+.engineering-link {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    width:
+        100%;
+
+    margin-top:
+        3rem;
+
+    padding:
+        1.2rem
+        0;
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+
+    color:
+        var(--color-foreground);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.07em;
+
+    text-transform:
+        uppercase;
+
+    text-decoration:
+        none;
+
+    transition:
+        padding
+        var(--transition-fast),
+        background
+        var(--transition-fast),
+        color
+        var(--transition-fast);
+}
+
+
+.engineering-link:hover {
+    padding-left:
+        1rem;
+
+    padding-right:
+        1rem;
+
+    background:
+        var(--color-foreground);
+
+    color:
+        var(--color-background);
+}
+
+
+
+/* ==========================================================
+   HAPTIC PROCESS
+========================================================== */
+
+.engineering-process {
+    padding:
+        var(--section-spacing)
+        0;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-process-heading {
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(8rem, 0.35fr)
+        minmax(0, 1.65fr);
+
+    gap:
+        clamp(
+            3rem,
+            7vw,
+            8rem
+        );
+
+    align-items:
+        start;
+}
+
+
+.engineering-process-heading h2 {
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            3rem,
+            7vw,
+            8rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.86;
+
+    letter-spacing:
+        -0.075em;
+}
+
+
+
+/* ==========================================================
+   PROCESS CARDS
+========================================================== */
+
+.engineering-process-grid {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    margin-top:
+        clamp(
+            5rem,
+            10vw,
+            10rem
+        );
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-process-card {
+    min-height:
+        26rem;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    padding:
+        1.5rem
+        2rem
+        2.5rem;
+}
+
+
+.engineering-process-card:first-child {
+    padding-left:
+        0;
+}
+
+
+.engineering-process-card:last-child {
+    padding-right:
+        0;
+}
+
+
+.engineering-process-card:not(:last-child) {
+    border-right:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-process-number {
+    margin-bottom:
+        auto;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        600;
+}
+
+
+.engineering-process-card h3 {
+    margin:
+        5rem
+        0
+        1.5rem;
+
+    font-size:
+        clamp(
+            1.6rem,
+            2.5vw,
+            2.8rem
+        );
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
+}
+
+
+.engineering-process-card p {
+    max-width:
+        28rem;
+
+    margin:
+        0;
+
+    font-size:
+        1rem;
+
+    line-height:
+        1.5;
+}
+
+
+
+/* ==========================================================
+   PROCESS MEDIA
+========================================================== */
+
+.engineering-process-media {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        var(--page-padding);
+
+    margin-top:
+        clamp(
+            5rem,
+            10vw,
+            10rem
+        );
+}
+
+
+.engineering-media--wide {
+    grid-column:
+        1 / -1;
+
+    aspect-ratio:
+        16 / 9;
+}
+
+
+.engineering-media--secondary,
+.engineering-media--video {
+    aspect-ratio:
+        4 / 3;
+}
+
+
+.engineering-media--video video {
+    background:
+        #000000;
+}
+
+
+
+/* ==========================================================
+   ROBOTICS
+========================================================== */
+
+.engineering-robotics {
+    padding:
+        var(--section-spacing)
+        0;
+}
+
+
+.engineering-robotics-heading {
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(8rem, 0.35fr)
+        minmax(0, 1.1fr)
+        minmax(18rem, 0.55fr);
+
+    gap:
+        clamp(
+            3rem,
+            6vw,
+            7rem
+        );
+
+    align-items:
+        end;
+}
+
+
+.engineering-robotics-heading h2 {
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            3rem,
+            7vw,
+            8rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.86;
+
+    letter-spacing:
+        -0.075em;
+}
+
+
+.engineering-robotics-intro {
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            1rem,
+            1.25vw,
+            1.2rem
+        );
+
+    line-height:
+        1.55;
+}
+
+
+
+/* ----------------------------------------------------------
+   MAIN ROBOTICS IMAGE
+---------------------------------------------------------- */
+
+.engineering-media--robotics {
+    margin-top:
+        clamp(
+            5rem,
+            9vw,
+            9rem
+        );
+
+    aspect-ratio:
+        16 / 8;
+}
+
+
+
+/* ==========================================================
+   ROBOTICS SPECIALIZATIONS
+========================================================== */
+
+.engineering-specializations {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    margin-top:
+        clamp(
+            5rem,
+            9vw,
+            9rem
+        );
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-specialization {
+    min-height:
+        clamp(
+            28rem,
+            42vw,
+            38rem
+        );
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        space-between;
+
+    padding:
+        1.5rem
+        2rem
+        2.5rem
+        0;
+}
+
+
+.engineering-specialization:first-child {
+    border-right:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-specialization:last-child {
+    padding-left:
+        2rem;
+}
+
+
+.engineering-specialization-top {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        0.07em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.engineering-specialization h3 {
+    margin:
+        0
+        0
+        2rem;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            2.5rem,
+            4.5vw,
+            5rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.92;
+
+    letter-spacing:
+        -0.055em;
+}
+
+
+.engineering-specialization p {
+    max-width:
+        32rem;
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            1rem,
+            1.2vw,
+            1.2rem
+        );
+
+    line-height:
+        1.55;
+}
+
+
+
+/* ==========================================================
+   ROBOTICS GALLERY
+========================================================== */
+
+.engineering-robotics-gallery {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        var(--page-padding);
+
+    margin-top:
+        clamp(
+            5rem,
+            9vw,
+            9rem
+        );
+}
+
+
+.engineering-robotics-gallery .engineering-media {
+    aspect-ratio:
+        4 / 5;
+}
+
+
+
+/* ==========================================================
+   MEDIA HOVER
+========================================================== */
+
+.engineering-media img {
+    transition:
+        transform
+        var(--transition-slow);
+}
+
+
+.engineering-media:hover img {
+    transform:
+        scale(1.015);
+}
+
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .engineering-hero-grid,
+    .engineering-feature-grid,
+    .engineering-process-heading,
+    .engineering-robotics-heading {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-hero-copy {
+        max-width:
+            42rem;
+    }
+
+
+    .engineering-feature-copy {
+        gap:
+            4rem;
+    }
+
+
+    .engineering-feature-text {
+        margin-top:
+            0;
+    }
+
+
+    .engineering-process-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-process-card,
+    .engineering-process-card:first-child,
+    .engineering-process-card:last-child {
+        min-height:
+            auto;
+
+        padding:
+            1.75rem
+            0
+            3rem;
+    }
+
+
+    .engineering-process-card:not(:last-child) {
+        border-right:
+            0;
+
+        border-bottom:
+            1px solid
+            var(--color-border);
+    }
+
+
+    .engineering-process-number {
+        margin-bottom:
+            4rem;
+    }
+
+
+    .engineering-media--robotics {
+        aspect-ratio:
+            4 / 3;
+    }
+
+}
+
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 600px) {
+
+    .engineering-hero {
+        min-height:
+            100svh;
+    }
+
+
+    .engineering-hero h1 {
+        font-size:
+            clamp(
+                4rem,
+                18vw,
+                6.5rem
+            );
+    }
+
+
+    .engineering-feature-grid {
+        gap:
+            4rem;
+    }
+
+
+    .engineering-media--feature {
+        aspect-ratio:
+            4 / 5;
+    }
+
+
+    .engineering-process-media {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-media--wide {
+        grid-column:
+            auto;
+
+        aspect-ratio:
+            4 / 3;
+    }
+
+
+    .engineering-specializations {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-specialization,
+    .engineering-specialization:last-child {
+        min-height:
+            27rem;
+
+        padding:
+            1.5rem
+            0
+            2.5rem;
+    }
+
+
+    .engineering-specialization:first-child {
+        border-right:
+            0;
+
+        border-bottom:
+            1px solid
+            var(--color-border);
+    }
+
+
+    .engineering-robotics-gallery {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-robotics-gallery .engineering-media {
+        aspect-ratio:
+            4 / 3;
+    }
+
+}
+
+
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .engineering-media img,
+    .engineering-link {
+        transition:
+            none;
+    }
+
+}
+/* ==========================================================
+   ENGINEERING — TECHNICAL DEVELOPMENT
+   ==========================================================
+   Built to visually match the Music page without inheriting
+   Music-specific layout rules.
+========================================================== */
+
+
+.engineering-development {
+    width: 100%;
+
+    padding:
+        var(--section-spacing)
+        var(--page-padding);
+
+    overflow: hidden;
+}
+
+
+
+/* ==========================================================
+   INDIVIDUAL ROW
+========================================================== */
+
+.engineering-development-row {
+    width: 100%;
+
+    display: grid;
+
+    /*
+     * minmax(0, 1fr) is important.
+     *
+     * It prevents large headings from forcing the grid
+     * wider than the browser window.
+     */
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap:
+        clamp(
+            3rem,
+            7vw,
+            8rem
+        );
+
+    align-items: center;
+
+    padding:
+        clamp(
+            6rem,
+            12vw,
+            12rem
+        )
+        0;
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-development-row:first-child {
+    border-top:
+        1px solid
+        var(--color-border);
+}
+
+
+
+/* ==========================================================
+   ALTERNATING LAYOUT
+========================================================== */
+
+.engineering-development-row--reverse
+.engineering-development-copy {
+    order: 2;
+}
+
+
+.engineering-development-row--reverse
+.engineering-development-media {
+    order: 1;
+}
+
+
+
+/* ==========================================================
+   COPY COLUMN
+========================================================== */
+
+.engineering-development-copy {
+    /*
+     * CRITICAL:
+     * Stops text from forcing a CSS Grid column wider.
+     */
+    min-width: 0;
+
+    width: 100%;
+}
+
+
+
+/* ==========================================================
+   LABEL
+========================================================== */
+
+.engineering-development .section-label {
+    margin:
+        0
+        0
+        clamp(
+            3rem,
+            6vw,
+            6rem
+        );
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.08em;
+
+    text-transform:
+        uppercase;
+}
+
+
+
+/* ==========================================================
+   MAIN TITLES
+========================================================== */
+
+.engineering-development-title {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    /*
+     * Large, but deliberately capped so it cannot
+     * destroy the two-column layout.
+     */
+    font-size:
+        clamp(
+            3rem,
+            5.5vw,
+            6.5rem
+        );
+
+    font-weight:
+        800;
+
+    line-height:
+        0.88;
+
+    letter-spacing:
+        -0.06em;
+
+    /*
+     * Prevent bizarre overflow.
+     */
+    overflow-wrap:
+        normal;
+
+    word-break:
+        normal;
+}
+
+
+.engineering-development-title span {
+    display:
+        block;
+
+    max-width:
+        100%;
+}
+
+
+
+/* ==========================================================
+   DESCRIPTION
+========================================================== */
+
+.engineering-development-description {
+    max-width:
+        36rem;
+
+    margin-top:
+        clamp(
+            3rem,
+            6vw,
+            6rem
+        );
+}
+
+
+.engineering-development-description p {
+    margin:
+        0
+        0
+        1.4rem;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            1rem,
+            1.25vw,
+            1.2rem
+        );
+
+    font-weight:
+        400;
+
+    line-height:
+        1.55;
+}
+
+
+
+/* ==========================================================
+   DETAIL CARDS
+========================================================== */
+
+.engineering-development-cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    margin-top:
+        clamp(
+            4rem,
+            7vw,
+            7rem
+        );
+
+    border-top:
+        1px solid
+        var(--color-border);
+
+    border-bottom:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-development-card {
+    min-width: 0;
+
+    min-height:
+        20rem;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    padding:
+        1.4rem
+        1.5rem
+        2rem
+        0;
+}
+
+
+.engineering-development-card:first-child {
+    border-right:
+        1px solid
+        var(--color-border);
+}
+
+
+.engineering-development-card:last-child {
+    padding-left:
+        1.5rem;
+}
+
+
+
+/* ==========================================================
+   CARD META
+========================================================== */
+
+.engineering-development-card-meta {
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        1rem;
+
+    margin-bottom:
+        auto;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        0.68rem;
+
+    font-weight:
+        600;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        0.07em;
+
+    text-transform:
+        uppercase;
+}
+
+
+
+/* ==========================================================
+   CARD TITLES
+========================================================== */
+
+.engineering-development-card h3 {
+    margin:
+        4rem
+        0
+        1rem;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        clamp(
+            1.35rem,
+            2vw,
+            2rem
+        );
+
+    font-weight:
+        700;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -0.025em;
+}
+
+
+.engineering-development-card p {
+    max-width:
+        25rem;
+
+    margin:
+        0;
+
+    font-family:
+        var(--font-main);
+
+    font-size:
+        0.95rem;
+
+    font-weight:
+        400;
+
+    line-height:
+        1.5;
+}
+
+
+
+/* ==========================================================
+   IMAGE
+========================================================== */
+
+.engineering-development-media {
+    min-width: 0;
+
+    width: 100%;
+
+    margin: 0;
+
+    overflow: hidden;
+
+    aspect-ratio:
+        4 / 5;
+
+    background:
+        #e9e9e9;
+}
+
+
+.engineering-development-media img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    filter:
+        grayscale(100%);
+
+    transition:
+        transform
+        var(--transition-slow);
+}
+
+
+.engineering-development-media:hover img {
+    transform:
+        scale(1.015);
+}
+
+
+
+/* ==========================================================
+   TABLET
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .engineering-development-row {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            4rem;
+    }
+
+
+    /*
+     * Reset alternating order once layout becomes stacked.
+     */
+    .engineering-development-row--reverse
+    .engineering-development-copy,
+    .engineering-development-row--reverse
+    .engineering-development-media {
+        order:
+            initial;
+    }
+
+
+    /*
+     * For the reverse row, keep image visually first.
+     */
+    .engineering-development-row--reverse
+    .engineering-development-media {
+        order:
+            1;
+    }
+
+
+    .engineering-development-row--reverse
+    .engineering-development-copy {
+        order:
+            2;
+    }
+
+
+    .engineering-development-title {
+        font-size:
+            clamp(
+                3.5rem,
+                10vw,
+                6rem
+            );
+    }
+
+
+    .engineering-development-description {
+        max-width:
+            42rem;
+    }
+
+
+    .engineering-development-media {
+        aspect-ratio:
+            4 / 3;
+    }
+
+}
+
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width: 600px) {
+
+    .engineering-development {
+        padding:
+            var(--section-spacing)
+            var(--page-padding);
+    }
+
+
+    .engineering-development-row {
+        padding:
+            5rem
+            0;
+    }
+
+
+    .engineering-development-title {
+        /*
+         * This is intentionally smaller than before.
+         * It physically cannot go off-screen.
+         */
+        font-size:
+            clamp(
+                2.8rem,
+                14vw,
+                4.6rem
+            );
+
+        line-height:
+            0.9;
+    }
+
+
+    .engineering-development-cards {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .engineering-development-card,
+    .engineering-development-card:last-child {
+        min-height:
+            auto;
+
+        padding:
+            1.5rem
+            0
+            2.5rem;
+    }
+
+
+    .engineering-development-card:first-child {
+        border-right:
+            0;
+
+        border-bottom:
+            1px solid
+            var(--color-border);
+    }
+
+
+    .engineering-development-card-meta {
+        margin-bottom:
+            3rem;
+    }
+
+
+    .engineering-development-card h3 {
+        margin-top:
+            0;
+    }
+
+
+    .engineering-development-media {
+        aspect-ratio:
+            4 / 5;
+    }
+
+}
+.engineering-media img {
+    filter: grayscale(100%);
+    transition:
+        transform var(--transition-slow),
+        filter var(--transition-medium);
+}
+
+.engineering-media:hover img {
+    transform: scale(1.015);
+    filter: grayscale(0%);
+}
+

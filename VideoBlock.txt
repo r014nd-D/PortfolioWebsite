@@ -1,0 +1,152 @@
+<!-- =========================================================
+     VIDEO SHOWCASE
+     ---------------------------------------------------------
+     Reusable media block.
+
+     You can:
+     - Keep only the local MP4
+     - Keep only the YouTube/Vimeo embed
+     - Use both
+     - Duplicate the entire block on a page
+
+     The existing .section-reveal class makes the block
+     fade/blur into view using your current JavaScript.
+     ========================================================= -->
+
+<section
+    class="video-showcase section-reveal"
+    aria-labelledby="video-showcase-title"
+>
+    <div class="video-showcase-inner">
+
+        <!-- Optional heading -->
+        <div class="video-showcase-heading">
+            <p class="section-label">
+                Video Showcase
+            </p>
+
+            <h2 id="video-showcase-title">
+                In Motion
+            </h2>
+        </div>
+
+
+        <!-- =================================================
+             LOCAL HTML5 VIDEO
+             ================================================= -->
+        <figure class="video-showcase-item">
+
+            <div class="video-frame video-frame--local">
+
+                <!--
+                    LOCAL MP4 PLACEHOLDER
+
+                    Put your video somewhere such as:
+
+                    videos/my-demo.mp4
+
+                    Then change the src below.
+
+                    autoplay:
+                    Starts automatically where browser policy allows.
+
+                    muted:
+                    Required/recommended for autoplay.
+
+                    loop:
+                    Repeats continuously.
+
+                    playsinline:
+                    Prevents forced fullscreen behavior on many
+                    mobile browsers.
+                -->
+                <video
+                    class="showcase-video"
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="metadata"
+                    poster="images/video-poster.jpg"
+                    aria-label="Video demonstration"
+                >
+                    <source
+                        src="videos/my-demo.mp4"
+                        type="video/mp4"
+                    />
+
+                    Your browser does not support HTML5 video.
+                </video>
+
+            </div>
+
+            <figcaption class="video-caption">
+
+                <span class="video-caption-title">
+                    Local Video
+                </span>
+
+                <span class="video-caption-text">
+                    Replace the MP4 path above with your own
+                    performance, demonstration, process, or project video.
+                </span>
+
+            </figcaption>
+
+        </figure>
+
+
+        <!-- =================================================
+             YOUTUBE / VIMEO EMBED
+             ================================================= -->
+        <figure class="video-showcase-item">
+
+            <div class="video-frame video-frame--embed">
+
+                <!--
+                    YOUTUBE PLACEHOLDER
+
+                    Replace VIDEO_ID with the actual YouTube video ID.
+
+                    Example:
+                    https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+                    becomes:
+                    https://www.youtube.com/embed/dQw4w9WgXcQ
+                -->
+                <iframe
+                    class="showcase-embed"
+                    src="https://www.youtube.com/embed/VIDEO_ID"
+                    title="YouTube video player"
+                    loading="lazy"
+                    allow="
+                        accelerometer;
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        gyroscope;
+                        picture-in-picture;
+                        web-share
+                    "
+                    allowfullscreen
+                ></iframe>
+
+            </div>
+
+            <figcaption class="video-caption">
+
+                <span class="video-caption-title">
+                    Featured Video
+                </span>
+
+                <span class="video-caption-text">
+                    Replace VIDEO_ID with your YouTube video ID.
+                    A Vimeo embed can use the same responsive container.
+                </span>
+
+            </figcaption>
+
+        </figure>
+
+    </div>
+</section>

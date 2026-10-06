@@ -1,0 +1,80 @@
+<!-- =========================================================
+     VIDEO SHOWCASE
+     ---------------------------------------------------------
+     Reusable media block.
+
+     You can:
+     - Keep only the local MP4
+     - Keep only the YouTube/Vimeo embed
+     - Use both
+     - Duplicate the entire block on a page
+
+     The existing .section-reveal class makes the block
+     fade/blur into view using your current JavaScript.
+     ========================================================= -->
+
+<section
+    class="video-showcase section-reveal"
+    aria-labelledby="video-showcase-title"
+>
+    <div class="video-showcase-inner">
+
+        <!-- Optional heading -->
+        <div class="video-showcase-heading">
+            <p class="section-label">
+                Performance Showcase
+            </p>
+
+            <h2 id="video-showcase-title">
+                In Motion
+            </h2>
+        </div>
+        <!-- =================================================
+             YOUTUBE / VIMEO EMBED
+             ================================================= -->
+        <figure class="video-showcase-item">
+
+            <div class="video-frame video-frame--embed">
+
+                <!--
+                    YOUTUBE PLACEHOLDER
+
+                    Replace VIDEO_ID with the actual YouTube video ID.
+
+                    Example:
+                    https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+                    becomes:
+                    https://www.youtube.com/embed/dQw4w9WgXcQ
+                -->
+                <iframe
+                    class="showcase-embed"
+                    src="src=https://www.youtube.com/embed/wY7tlKo11ag"
+                    title="YouTube video player"
+                    loading="lazy"
+                    allow="
+                        accelerometer;
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        gyroscope;
+                        picture-in-picture;
+                        web-share
+                    "
+                    allowfullscreen
+                ></iframe>
+
+            </div>
+
+            <figcaption class="video-caption">
+
+                <span class="video-caption-title">
+                    Canadian Music Competition First Prize Performance
+                </span>
+
+            </figcaption>
+
+        </figure>
+
+    </div>
+</section>
